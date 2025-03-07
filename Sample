@@ -7,7 +7,9 @@ import (
 	"log"
 	"net/http"
 	"os"
+	"strings"
 	"time"
+	"bufio"
 )
 
 // Structs to map API responses
@@ -29,7 +31,7 @@ func makeRequest(url string) ([]byte, error) {
 	defer resp.Body.Close()
 
 	if resp.StatusCode != http.StatusOK {
-		return nil, fmt.Errorf("error: received non-OK response: %v", resp.Status)
+		return nil, fmt.Errorf("received non-OK response: %v", resp.Status)
 	}
 
 	body, err := ioutil.ReadAll(resp.Body)
@@ -40,7 +42,7 @@ func makeRequest(url string) ([]byte, error) {
 	return body, nil
 }
 
-// Function to fetch event data from EventAPI
+// Fetch event data from EventAPI
 func getEventData(eventID string) (*EventAPIResponse, error) {
 	url := fmt.Sprintf("https://api.example.com/event/%s", eventID) // Replace with actual EventAPI URL
 	body, err := makeRequest(url)
@@ -56,7 +58,7 @@ func getEventData(eventID string) (*EventAPIResponse, error) {
 	return &eventData, nil
 }
 
-// Function to fetch profile data from ProfileAPI
+// Fetch profile data from ProfileAPI
 func getProfileData(cardNumber string) (*ProfileAPIResponse, error) {
 	url := fmt.Sprintf("https://api.example.com/profile/%s", cardNumber) // Replace with actual ProfileAPI URL
 	body, err := makeRequest(url)
@@ -72,52 +74,101 @@ func getProfileData(cardNumber string) (*ProfileAPIResponse, error) {
 	return &profileData, nil
 }
 
-// Function to compare timestamps and write result to file
-func compareTimestamps(eventID string) error {
-	// Get event data from EventAPI
-	eventData, err := getEventData(eventID)
-	if err != nil {
-		return err
-	}
-
-	// Get profile data from ProfileAPI using card number from EventAPI response
-	profileData, err := getProfileData(eventData.CardNumber)
-	if err != nil {
-		return err
-	}
-
-	// Parse timestamps
+// Compare timestamps and write results to a file
+func compareTimestamps(eventID string, eventData EventAPIResponse, profileData ProfileAPIResponse) string {
+	// Parse the timestamps
 	postedTimestamp, err := time.Parse(time.RFC3339, eventData.PostedTimestamp)
 	if err != nil {
-		return fmt.Errorf("failed to parse posted timestamp: %v", err)
+		log.Printf("Failed to parse posted timestamp for Event ID %s: %v", eventID, err)
+		return ""
 	}
 
 	effectiveTimestamp, err := time.Parse(time.RFC3339, profileData.EffectiveTimestamp)
 	if err != nil {
-		return fmt.Errorf("failed to parse effective timestamp: %v", err)
+		log.Printf("Failed to parse effective timestamp for Card Number %s: %v", eventData.CardNumber, err)
+		return ""
 	}
 
-	// Compare timestamps
-	comparisonResult := "Timestamps are equal"
-	if !postedTimestamp.Equal(effectiveTimestamp) {
-		comparisonResult = fmt.Sprintf("Timestamps are different: Posted = %v, Effective = %v", postedTimestamp, effectiveTimestamp)
+	// Compare timestamps (allow for a small window, e.g., 5 seconds)
+	diff := postedTimestamp.Sub(effectiveTimestamp).Abs()
+	if diff < time.Second*5 { // Threshold for near match (5 seconds here)
+		return fmt.Sprintf("%s,%s,%s,%s,%s\n", eventID, eventData.PostedTimestamp, profileData.EffectiveTimestamp, "Near Match", "Timestamps are near but not identical")
+	} else if postedTimestamp.Equal(effectiveTimestamp) {
+		return fmt.Sprintf("%s,%s,%s,%s,%s\n", eventID, eventData.PostedTimestamp, profileData.EffectiveTimestamp, "Exact Match", "Timestamps are identical")
 	}
+	return ""
+}
 
-	// Write result to file
-	result := fmt.Sprintf("Event ID: %s\n%s\n", eventID, comparisonResult)
-	err = ioutil.WriteFile("comparison_result.txt", []byte(result), 0644)
+// Read event IDs from a file
+func readEventIDsFromFile(filename string) ([]string, error) {
+	file, err := os.Open(filename)
 	if err != nil {
-		return fmt.Errorf("failed to write result to file: %v", err)
+		return nil, fmt.Errorf("failed to open file: %v", err)
+	}
+	defer file.Close()
+
+	var eventIDs []string
+	scanner := bufio.NewScanner(file)
+	for scanner.Scan() {
+		eventID := strings.TrimSpace(scanner.Text())
+		if eventID != "" {
+			eventIDs = append(eventIDs, eventID)
+		}
 	}
 
-	return nil
+	if err := scanner.Err(); err != nil {
+		return nil, fmt.Errorf("error reading file: %v", err)
+	}
+
+	return eventIDs, nil
 }
 
 func main() {
-	eventID := "12345" // Example event ID
-	err := compareTimestamps(eventID)
+	// Read event IDs from file
+	eventIDs, err := readEventIDsFromFile("event_ids.txt")
 	if err != nil {
-		log.Fatalf("Error: %v", err)
+		log.Fatalf("Error reading event IDs: %v", err)
 	}
-	fmt.Println("Comparison completed and result written to comparison_result.txt")
+
+	// Create and open the result file to store matching or near matching events
+	resultFile, err := os.Create("comparison_result.csv")
+	if err != nil {
+		log.Fatalf("Error creating result file: %v", err)
+	}
+	defer resultFile.Close()
+
+	// Write headers to the comparison result file
+	_, err = resultFile.WriteString("EventID,PostedTimestamp,EffectiveTimestamp,MatchType,Comment\n")
+	if err != nil {
+		log.Fatalf("Error writing to result file: %v", err)
+	}
+
+	// Process each event ID
+	for _, eventID := range eventIDs {
+		// Fetch Event Data from EventAPI
+		eventData, err := getEventData(eventID)
+		if err != nil {
+			log.Printf("Error fetching data for Event ID %s: %v", eventID, err)
+			continue
+		}
+
+		// Fetch Profile Data from ProfileAPI using CardNumber from EventAPI response
+		profileData, err := getProfileData(eventData.CardNumber)
+		if err != nil {
+			log.Printf("Error fetching profile data for CardNumber %s: %v", eventData.CardNumber, err)
+			continue
+		}
+
+		// Compare timestamps and write the result if they match or are near
+		result := compareTimestamps(eventID, *eventData, *profileData)
+		if result != "" {
+			// Write the result to the comparison result file
+			_, err = resultFile.WriteString(result)
+			if err != nil {
+				log.Printf("Error writing comparison result for Event ID %s: %v", eventID, err)
+			}
+		}
+	}
+
+	fmt.Println("Comparison completed and results written to comparison_result.csv")
 }
