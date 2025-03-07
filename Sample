@@ -1,159 +1,123 @@
 package main
 
 import (
-	"bytes"
 	"encoding/json"
 	"fmt"
 	"io/ioutil"
 	"log"
-	"os"
 	"net/http"
-	"strings"
+	"os"
 	"time"
 )
 
-// Struct to hold the response from eventapi
+// Structs to map API responses
 type EventAPIResponse struct {
-	EventID   string `json:"eventid"`
-	CardNumber string `json:"cardnumber"`
-	Timestamp  string `json:"timestamp"`
+	CardNumber      string `json:"cardNumber"`
+	PostedTimestamp string `json:"postedTimestamp"`
 }
 
-// Struct to hold the response from profileapi
 type ProfileAPIResponse struct {
-	CardNumber string `json:"cardnumber"`
-	Timestamp  string `json:"timestamp"`
+	EffectiveTimestamp string `json:"effectiveTimestamp"`
+}
+
+// Helper function to make HTTP GET requests
+func makeRequest(url string) ([]byte, error) {
+	resp, err := http.Get(url)
+	if err != nil {
+		return nil, err
+	}
+	defer resp.Body.Close()
+
+	if resp.StatusCode != http.StatusOK {
+		return nil, fmt.Errorf("error: received non-OK response: %v", resp.Status)
+	}
+
+	body, err := ioutil.ReadAll(resp.Body)
+	if err != nil {
+		return nil, err
+	}
+
+	return body, nil
+}
+
+// Function to fetch event data from EventAPI
+func getEventData(eventID string) (*EventAPIResponse, error) {
+	url := fmt.Sprintf("https://api.example.com/event/%s", eventID) // Replace with actual EventAPI URL
+	body, err := makeRequest(url)
+	if err != nil {
+		return nil, err
+	}
+
+	var eventData EventAPIResponse
+	if err := json.Unmarshal(body, &eventData); err != nil {
+		return nil, err
+	}
+
+	return &eventData, nil
+}
+
+// Function to fetch profile data from ProfileAPI
+func getProfileData(cardNumber string) (*ProfileAPIResponse, error) {
+	url := fmt.Sprintf("https://api.example.com/profile/%s", cardNumber) // Replace with actual ProfileAPI URL
+	body, err := makeRequest(url)
+	if err != nil {
+		return nil, err
+	}
+
+	var profileData ProfileAPIResponse
+	if err := json.Unmarshal(body, &profileData); err != nil {
+		return nil, err
+	}
+
+	return &profileData, nil
+}
+
+// Function to compare timestamps and write result to file
+func compareTimestamps(eventID string) error {
+	// Get event data from EventAPI
+	eventData, err := getEventData(eventID)
+	if err != nil {
+		return err
+	}
+
+	// Get profile data from ProfileAPI using card number from EventAPI response
+	profileData, err := getProfileData(eventData.CardNumber)
+	if err != nil {
+		return err
+	}
+
+	// Parse timestamps
+	postedTimestamp, err := time.Parse(time.RFC3339, eventData.PostedTimestamp)
+	if err != nil {
+		return fmt.Errorf("failed to parse posted timestamp: %v", err)
+	}
+
+	effectiveTimestamp, err := time.Parse(time.RFC3339, profileData.EffectiveTimestamp)
+	if err != nil {
+		return fmt.Errorf("failed to parse effective timestamp: %v", err)
+	}
+
+	// Compare timestamps
+	comparisonResult := "Timestamps are equal"
+	if !postedTimestamp.Equal(effectiveTimestamp) {
+		comparisonResult = fmt.Sprintf("Timestamps are different: Posted = %v, Effective = %v", postedTimestamp, effectiveTimestamp)
+	}
+
+	// Write result to file
+	result := fmt.Sprintf("Event ID: %s\n%s\n", eventID, comparisonResult)
+	err = ioutil.WriteFile("comparison_result.txt", []byte(result), 0644)
+	if err != nil {
+		return fmt.Errorf("failed to write result to file: %v", err)
+	}
+
+	return nil
 }
 
 func main() {
-	// Open the eventids.txt file
-	file, err := os.Open("eventids.txt")
+	eventID := "12345" // Example event ID
+	err := compareTimestamps(eventID)
 	if err != nil {
-		log.Fatalf("Error opening eventids.txt: %v", err)
+		log.Fatalf("Error: %v", err)
 	}
-	defer file.Close()
-
-	// Create/overwrite the output file
-	outputFile, err := os.Create("output.txt")
-	if err != nil {
-		log.Fatalf("Error creating output file: %v", err)
-	}
-	defer outputFile.Close()
-
-	// Read the event IDs from the eventids.txt file
-	eventIDs := readEventIDs(file)
-
-	// Iterate through each eventID and process the APIs
-	for _, eventID := range eventIDs {
-		// Hit eventapi and get cardnumber and timestamp
-		eventResponse, err := hitEventAPI(eventID)
-		if err != nil {
-			log.Printf("Error hitting eventapi for eventID %s: %v", eventID, err)
-			continue
-		}
-
-		// Write eventID and cardnumber to output file
-		_, err = outputFile.WriteString(fmt.Sprintf("%s,%s\n", eventResponse.EventID, eventResponse.CardNumber))
-		if err != nil {
-			log.Printf("Error writing to output file for eventID %s: %v", eventID, err)
-			continue
-		}
-
-		// Hit profileapi using the cardnumber from the eventapi response
-		profileResponse, err := hitProfileAPI(eventResponse.CardNumber)
-		if err != nil {
-			log.Printf("Error hitting profileapi for cardnumber %s: %v", eventResponse.CardNumber, err)
-			continue
-		}
-
-		// Compare timestamps
-		compareTimestamps(eventResponse.Timestamp, profileResponse.Timestamp)
-	}
-}
-
-// Read event IDs from the file
-func readEventIDs(file *os.File) []string {
-	var eventIDs []string
-	scanner := bufio.NewScanner(file)
-	for scanner.Scan() {
-		eventIDs = append(eventIDs, strings.TrimSpace(scanner.Text()))
-	}
-	if err := scanner.Err(); err != nil {
-		log.Fatalf("Error reading eventids.txt: %v", err)
-	}
-	return eventIDs
-}
-
-// Hit the eventapi and retrieve the cardnumber and timestamp
-func hitEventAPI(eventID string) (*EventAPIResponse, error) {
-	url := fmt.Sprintf("https://api.example.com/event/%s", eventID)
-	resp, err := http.Get(url)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	// Read the response body
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	// Parse the response JSON into EventAPIResponse
-	var eventResponse EventAPIResponse
-	err = json.Unmarshal(body, &eventResponse)
-	if err != nil {
-		return nil, err
-	}
-
-	return &eventResponse, nil
-}
-
-// Hit the profileapi using cardnumber and retrieve the timestamp
-func hitProfileAPI(cardNumber string) (*ProfileAPIResponse, error) {
-	url := fmt.Sprintf("https://api.example.com/profile/%s", cardNumber)
-	resp, err := http.Get(url)
-	if err != nil {
-		return nil, err
-	}
-	defer resp.Body.Close()
-
-	// Read the response body
-	body, err := ioutil.ReadAll(resp.Body)
-	if err != nil {
-		return nil, err
-	}
-
-	// Parse the response JSON into ProfileAPIResponse
-	var profileResponse ProfileAPIResponse
-	err = json.Unmarshal(body, &profileResponse)
-	if err != nil {
-		return nil, err
-	}
-
-	return &profileResponse, nil
-}
-
-// Compare timestamps between eventapi and profileapi
-func compareTimestamps(eventTimestamp, profileTimestamp string) {
-	eventTime, err := time.Parse(time.RFC3339, eventTimestamp)
-	if err != nil {
-		log.Printf("Error parsing event timestamp: %v", err)
-		return
-	}
-
-	profileTime, err := time.Parse(time.RFC3339, profileTimestamp)
-	if err != nil {
-		log.Printf("Error parsing profile timestamp: %v", err)
-		return
-	}
-
-	// Compare the timestamps
-	if eventTime.Equal(profileTime) {
-		fmt.Println("Timestamps match.")
-	} else if eventTime.Before(profileTime) {
-		fmt.Println("Event timestamp is earlier than profile timestamp.")
-	} else {
-		fmt.Println("Event timestamp is later than profile timestamp.")
-	}
+	fmt.Println("Comparison completed and result written to comparison_result.txt")
 }
