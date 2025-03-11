@@ -1,3 +1,14 @@
+++++++++++++++
+
+
+// Check if the timestamp already has a time zone (Z or offset)
+	if !strings.Contains(eventData.PostedTimestamp, "Z") && !strings.Contains(eventData.PostedTimestamp, "+") && !strings.Contains(eventData.PostedTimestamp, "-") {
+		// If no time zone is present, append 'Z' to indicate UTC
+		eventData.PostedTimestamp = eventData.PostedTimestamp + "Z"
+	}
+
+
++++++++++++++
 
 // cG5hbHdhYTozQXRpc2hAY2hhdmFuMTc= //
 
