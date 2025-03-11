@@ -172,3 +172,81 @@ func main() {
 
 	fmt.Println("Comparison completed and results written to comparison_result.csv")
 }
+
+
+
+
+
+
+-------------
+
+
+
+
+// Fetch profile data from ProfileAPI with Basic Authorization Header
+func getProfileData(cardNumber string) (*ProfileAPIResponse, error) {
+    // URL for fetching profile data using card number
+    url := fmt.Sprintf("https://api.example.com/profile/%s", cardNumber) // Replace with actual ProfileAPI URL
+
+    // Hardcoded Basic Authorization token (replace with actual Base64-encoded token)
+    basicAuthToken := "dXNlcjpwYXNz" // Example of a base64-encoded "user:pass" token
+
+    // Prepare headers with the Basic token
+    headers := map[string]string{
+        "Authorization": "Basic " + basicAuthToken, // Hardcoded Authorization header with Basic token
+    }
+
+    // Make the request with the Authorization header
+    body, err := makeRequestWithHeaders(url, headers)
+    if err != nil {
+        return nil, err
+    }
+
+    // Optionally, print the response for debugging
+    fmt.Println("API Response Body:", string(body))
+
+    // Unmarshal the response into the ProfileAPIResponse struct
+    var profileData ProfileAPIResponse
+    if err := json.Unmarshal(body, &profileData); err != nil {
+        return nil, err
+    }
+
+    // Return the parsed profile data
+    return &profileData, nil
+}
+
+// Modified helper function to handle custom headers
+func makeRequestWithHeaders(url string, headers map[string]string) ([]byte, error) {
+    req, err := http.NewRequest("GET", url, nil)
+    if err != nil {
+        return nil, err
+    }
+
+    // Add headers to the request (including authorization)
+    for key, value := range headers {
+        req.Header.Add(key, value)
+    }
+
+    // Create HTTP client with timeout
+    client := &http.Client{
+        Timeout: time.Second * 10,
+    }
+
+    resp, err := client.Do(req)
+    if err != nil {
+        return nil, err
+    }
+    defer resp.Body.Close()
+
+    if resp.StatusCode != http.StatusOK {
+        return nil, fmt.Errorf("received non-OK response: %v", resp.Status)
+    }
+
+    body, err := ioutil.ReadAll(resp.Body)
+    if err != nil {
+        return nil, err
+    }
+
+    return body, nil
+}
+
