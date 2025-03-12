@@ -1,3 +1,62 @@
+func compareTimestamps(eventID string, eventData EventAPIResponse, profileData ProfileAPIResponse) string {
+	// Append 'Z' if it's missing from the postedTimestamp
+	if !strings.Contains(eventData.Snapshot.Payload.Data.PostedTimestamp, "Z") {
+		eventData.Snapshot.Payload.Data.PostedTimestamp = eventData.Snapshot.Payload.Data.PostedTimestamp + "Z"
+	}
+
+	// Parse the postedTimestamp (ensure it's in RFC3339 format)
+	postedTimestamp, err := time.Parse(time.RFC3339, eventData.Snapshot.Payload.Data.PostedTimestamp)
+	if err != nil {
+		log.Printf("Failed to parse posted timestamp: %v", err)
+		return ""
+	}
+
+	// Initialize result string to collect all comparisons
+	var result string
+
+	// Iterate over all ProductInfo entries and compare EffectiveDate
+	for i := 0; i < len(profileData.ProductInfo); i++ {
+		// Parse the effectiveTimestamp for each ProductInfo entry
+		effectiveTimestamp, err := time.Parse(time.RFC3339, profileData.ProductInfo[i].EffectiveDate)
+		if err != nil {
+			log.Printf("Failed to parse effectiveDate for ProductInfo[%d]: %v", i, err)
+			continue
+		}
+
+		// Calculate the time difference
+		diff := postedTimestamp.Sub(effectiveTimestamp).Abs()
+
+		// Compare the timestamps and append result
+		if diff < time.Hour*24 { // 24 hours difference
+			result += fmt.Sprintf("%s,%s,%s,%s,%s\n", eventID, eventData.Snapshot.Payload.Data.PostedTimestamp, profileData.ProductInfo[i].EffectiveDate, "Timestamps are near, but not identical.")
+		} else if postedTimestamp.Equal(effectiveTimestamp) {
+			result += fmt.Sprintf("%s,%s,%s,%s,%s\n", eventID, eventData.Snapshot.Payload.Data.PostedTimestamp, profileData.ProductInfo[i].EffectiveDate, "Timestamps are identical.")
+		} else {
+			result += fmt.Sprintf("%s,%s,%s,%s,%s\n", eventID, eventData.Snapshot.Payload.Data.PostedTimestamp, profileData.ProductInfo[i].EffectiveDate, "Timestamps are not identical")
+		}
+	}
+
+	// Return the final result
+	return result
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ++++++++++++++
 
 
