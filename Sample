@@ -1,3 +1,19 @@
+____________________
+
+
+
+if _, exists := uniqueEntries[logMessage]; !exists {
+			uniqueEntries[logMessage] = true
+			result += logMessage + "\n"
+		}
+
+
+_____________________
+
+
+
+
+
 func compareTimestamps(eventID string, eventData EventAPIResponse, profileData ProfileAPIResponse) string {
 	// Append 'Z' if it's missing from the postedTimestamp
 	if !strings.Contains(eventData.Snapshot.Payload.Data.PostedTimestamp, "Z") {
