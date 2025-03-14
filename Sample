@@ -1,3 +1,7 @@
+split -l 10000 event_ids.txt chunk_
+
+
+
 ls chunk_* | parallel 'go run familycodeissue.go {}'
 
 
