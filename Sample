@@ -1,3 +1,25 @@
+ls chunk_* | parallel 'go run familycodeissue.go {}'
+
+
+ls chunk_* | parallel 'go run familycodeissue.go {} > {}.log 2>&1'
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 	// Open the result file for reading and writing
 	resultFile, err := os.OpenFile("result.txt", os.O_RDWR|os.O_CREATE, 0644)
