@@ -1,4 +1,58 @@
-	// Open the result file (create it if it doesn't exist)
+
+	// Open the result file for reading and writing
+	resultFile, err := os.OpenFile("result.txt", os.O_RDWR|os.O_CREATE, 0644)
+	if err != nil {
+		fmt.Println("Error opening file:", err)
+		return
+	}
+	defer resultFile.Close()
+
+	// Read all existing lines in the file
+	scanner := bufio.NewScanner(resultFile)
+	uniqueEntries := make(map[string]bool)
+
+	// Read the file content and check for duplicates
+	var allLines []string
+	for scanner.Scan() {
+		line := scanner.Text()
+		if _, exists := uniqueEntries[line]; !exists {
+			uniqueEntries[line] = true
+			allLines = append(allLines, line)
+		}
+	}
+
+	// Check if there were any errors during the scanning process
+	if err := scanner.Err(); err != nil {
+		fmt.Println("Error reading file:", err)
+		return
+	}
+
+	// Open the file for overwriting
+	resultFile.Seek(0, 0) // Go to the beginning of the file
+
+	// Write the unique lines back to the file (overwrite)
+	writer := bufio.NewWriter(resultFile)
+	for _, line := range allLines {
+		_, err := writer.WriteString(line + "\n")
+		if err != nil {
+			fmt.Println("Error writing to file:", err)
+			return
+		}
+	}
+
+	// Flush the writer buffer to ensure all data is written to the file
+	writer.Flush()
+
+
+
+(((((((((((((((((((((((((((((((((((((((((((((((((((((
+
+
+
+
+
+
+// Open the result file (create it if it doesn't exist)
 	resultFile, err := os.Create("result.txt")
 	if err != nil {
 		fmt.Println("Error creating file:", err)
