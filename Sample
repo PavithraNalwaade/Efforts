@@ -1,3 +1,36 @@
+	// Open the result file (create it if it doesn't exist)
+	resultFile, err := os.Create("result.txt")
+	if err != nil {
+		fmt.Println("Error creating file:", err)
+		return
+	}
+	defer resultFile.Close()
+
+	// Map to keep track of unique entries
+	uniqueEntries := make(map[string]bool)
+
+	// Result string to hold all unique log messages
+	var result string
+
+	// Process each log message
+	for _, logMessage := range logMessages {
+		// Only add unique log messages to the result
+		if _, exists := uniqueEntries[logMessage]; !exists {
+			uniqueEntries[logMessage] = true
+			result += logMessage + "\n"
+		}
+	}
+
+	// Write the accumulated result to the file
+	_, err = resultFile.WriteString(result)
+	if err != nil {
+		fmt.Println("Error writing to file:", err)
+		return
+	}
+
+
+
+
 ____________________
 
 
