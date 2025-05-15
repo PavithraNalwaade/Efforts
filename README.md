@@ -16,11 +16,9 @@ GROUP BY
     a.lylt_cust_prfl_id;
 
 
-    lylt_cust_prfl_id
-card_number
-card_type
-lylt_lgr_entry_am
-post_ts
-roc_spend_am
-trans_id
-act_type_cd
+   a.lylt_cust_prfl_id,
+    SUM(a.lylt_lgr_entry_am),
+    a.post_ts,
+    SUM(c.roc_spend_am),
+    c.trans_id,
+    a.act_type_cd
