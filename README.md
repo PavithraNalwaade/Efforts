@@ -1,3 +1,41 @@
+(Select * , tag_prfl_da ->> 'app_approval_date' as prfl_start_date, tag_prfl_da ->> 'status' as Status, tag_prfl_da ->> 'block_code' as REASON, tag_prfl_da ->> 'date_to_cancel' as Cancel_date, ROW_NUMBER()
+				OVER(PARTITION BY glbl_lylt_prfl_id 
+					 ORDER BY eff_ts DESC) AS res,
+				Count(*) over(partition by glbl_lylt_prfl_id) AS cnt
+	from glbl_lylt_prfl.glbl_lylt_prfl_dtl
+	WHERE glbl_lylt_prfl_id IN (
+		select glbl_lylt_prfl_id from glbl_lylt_prfl.glbl_lylt_prfl_dtl
+	where tag_nm = 'profile'
+	and glbl_lylt_prfl_id in( '2b031b0b-ed58-4c53-bf28-561486ac1f8a'
+
+)
+		
+	)
+and tag_nm = 'instrument' )
+
+
+
+ERROR:  relation "glbl_lylt_prfl.glbl_lylt_prfl_dtl" does not exist
+LINE 5:  from glbl_lylt_prfl.glbl_lylt_prfl_dtl
+              ^ 
+
+SQL state: 42P01
+Character: 347
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 Risk Identified: 
 The manual process to fetch and compare product and transaction timestamps took approximately 16–18 hours (2 full working days) for each run. It involved repetitive tasks such as calling APIs, extracting timestamps, and comparing product activity and transaction data. This manual work was time-consuming, prone to human error, and not scalable when dealing with large volumes of data (100,000+ events). As a result, it was difficult to consistently and quickly identify when card transactions were processed on outdated product versions.  
 
