@@ -1,11 +1,17 @@
-select lylt_cust_prfl_id, post_ts, sum(lylt_lgr_entry_am)
-from glbl_lylt_lgr.glbl_lylt_lgr_entry
-where lylt_cust_prfl_id  ='409e0145-c2a2-4eb1-9c48-fe90060f88a5'
-and cast(post_ts as text) >= '2024-06-16%' 
-and act_type_cd='REDEMPTION'
-group by lylt_cust_prfl_id, post_ts;
+SELECT 
+  lylt_cust_prfl_id, 
+  post_ts, 
+  SUM(lylt_lgr_entry_am)
+FROM 
+  glbl_lylt_lgr.glbl_lylt_lgr_entry
+WHERE 
+  lylt_cust_prfl_id = '409e0145-c2a2-4eb1-9c48-fe90060f88a5'
+  AND post_ts >= '2024-06-16 00:00:00'
+  AND post_ts < '2024-06-18 00:00:00'
+  AND act_type_cd = 'REDEMPTION'
+GROUP BY 
+  lylt_cust_prfl_id, post_ts;
 
-2024-06-17 15:23:33.203401
 
 
 
