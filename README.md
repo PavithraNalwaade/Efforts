@@ -1,3 +1,17 @@
+select *
+from glbl_lylt_lgr.glbl_lylt_lgr_entry
+where lylt_cust_prfl_id  ='d88c5bb7-6916-48d2-bb4d-22729eeb62be'
+and cast(post_ts as text) >= '2024-04-30%'
+and act_type_cd='REDEMPTION';
+
+
+
+--------------
+
+
+
+
+
 (Select * , tag_prfl_da ->> 'app_approval_date' as prfl_start_date, tag_prfl_da ->> 'status' as Status, tag_prfl_da ->> 'block_code' as REASON, tag_prfl_da ->> 'date_to_cancel' as Cancel_date, ROW_NUMBER()
 				OVER(PARTITION BY glbl_lylt_prfl_id 
 					 ORDER BY eff_ts DESC) AS res,
