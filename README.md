@@ -1,16 +1,13 @@
-SELECT 
-  lylt_cust_prfl_id, 
-  post_ts, 
-  SUM(lylt_lgr_entry_am)
-FROM 
-  glbl_lylt_lgr.glbl_lylt_lgr_entry
-WHERE 
-  lylt_cust_prfl_id = '409e0145-c2a2-4eb1-9c48-fe90060f88a5'
-  AND post_ts >= '2024-06-16 00:00:00'
-  AND post_ts < '2024-06-18 00:00:00'
-  AND act_type_cd = 'REDEMPTION'
-GROUP BY 
-  lylt_cust_prfl_id, post_ts;
+select a.lylt_cust_prfl_id ,sum(a.lylt_lgr_entry_am)
+from glbl_lylt_lgr.glbl_lylt_lgr_entry AS a
+full join glbl_lylt_lgr.glbl_lylt_lgr_event AS b
+on a.lylt_lgr_event_id= b.lylt_lgr_event_id
+full join glbl_lylt_lgr.glbl_lylt_lgr_spend_event as c
+on c.lylt_lgr_event_id = b.lylt_lgr_event_id
+where a.lylt_cust_prfl_id in('a5df7984-61b6-4fc5-9606-35d61964f8c7')
+and cast(a.post_ts as text) <= '2024-01-08%'
+and a.act_type_cd='REWARD'
+group by a.lylt_cust_prfl_id;
 
 
 
