@@ -1,3 +1,8 @@
+unknown directive: golang.org/x/textsyntax
+
+
+
+
 pnalwaa@G75FX62577 ptChecks % go get github.com/pkg/errors
 go: module github.com/pkg/errors: git ls-remote -q origin in /Users/pnalwaa/go/pkg/mod/cache/vcs/6d82bc6342f8104a35e27089637bd09e9cdb9402f044a75aeb6d5a73e50dad6c: exit status 128:
         fatal: unable to access 'https://github.com/pkg/errors/': Failed to connect to github.com port 443 after 75004 ms: Couldn't connect to server
