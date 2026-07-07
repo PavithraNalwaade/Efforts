@@ -1,20 +1,44 @@
-1. Outline the contributions of the nominee for the last 6 months
+## 1. Outline the contributions of the nominee for the last 6 months
 
-Over the last 6 months, the nominee has shown strong ownership as a Module Lead in the FCC project. She contributed to key automation activities, Redshift table variance analysis, pipeline failure fixes, ServiceNow and Microsoft Teams alerting automation, and Alliance workflow delay mail automation. She automated Incident creation, Teams failure alerts, Workflow delay alerts implementing through AWS Lambda, Event bridge, S3 and SNS [Included parent-child pipeline mapping,  auto-closure of incidents and genuine failure filtering from CloudWatch logs for AWS Glue and Step Function failures]. These improvements reduced manual tracking, helped the team identify failures faster, and made pipeline support more structured. Her Java development and migration support experience helped her understand real support challenges and deliver practical solutions that improved day-to-day operations.
+* Over the last 6 months, the nominee has shown strong ownership and accountability as a Module Lead in the FCC project.
 
+* She contributed to multiple key areas, including automation activities, Redshift table variance analysis, pipeline failure fixes, ServiceNow integration, Microsoft Teams alerting automation, and Alliance workflow delay mail automation.
 
-2. Describe the overall achievements of the nominee for the last 6 months
+* She played an important role in automating incident creation and failure alerting for AWS Glue and Step Function failures using AWS Lambda, EventBridge, S3, SNS, ServiceNow, and Microsoft Teams.
 
-The nominee helped move pipeline monitoring from a manual and reactive process to a more automated and reliable support model. Her work improved failure visibility, reduced alert noise, and made incident handling easier for the support team. As a Module Lead, she focused on solving actual operational issues across EDW/FSDW pipelines. Her contributions improved incident tracking, failure communication, triage readiness, and support confidence across environments. Overall, her work had a clear impact on support efficiency, faster failure response, and better pipeline monitoring.
+* Her automation included important support features such as parent-child pipeline mapping, incident auto-closure, genuine failure filtering from CloudWatch logs, and reduction of duplicate or unnecessary alerts.
 
+* These improvements helped the team identify pipeline failures faster, reduced manual tracking effort, and made the support process more structured and reliable.
 
----
+* She also supported workflow delay alerting automation, which helped the team proactively monitor delayed executions and take action before business impact.
 
-### Ratings
+* Her experience in Java development, migration support, and production support helped her understand practical challenges faced by the team and deliver solutions that were useful in real day-to-day operations.
 
-Innovation / Ability to think out-of-the-box: **5 stars**
-Commitment to client’s success: **5 stars**
-Meeting deadlines for the tasks assigned: **5 stars**
-Delivered quality in all aspects: **5 stars**
-Teamwork and cooperation: **5 stars**
-Commitment towards the tasks: **5 stars**
+* Overall, her contributions improved monitoring, incident handling, failure communication, and operational efficiency across EDW/FSDW pipeline support.
+
+## 2. Describe the overall achievements of the nominee for the last 6 months
+
+* The nominee has made a strong impact by helping move pipeline monitoring from a manual and reactive process to a more automated, reliable, and proactive support model.
+
+* Her work improved failure visibility across EDW/FSDW pipelines and helped the support team quickly understand where failures occurred and what action was required.
+
+* By implementing ServiceNow incident automation and Microsoft Teams alerting, she reduced manual effort and improved communication during pipeline failures.
+
+* Her contribution to genuine failure filtering helped reduce alert noise and allowed the team to focus on actual actionable failures instead of spending time on unnecessary or duplicate alerts.
+
+* She improved incident handling by supporting parent-child pipeline mapping and auto-closure logic, which made tracking and resolution more accurate.
+
+* As a Module Lead, she focused on solving real operational issues and ensured that the automation was practical, support-friendly, and aligned with project needs.
+
+* Her work improved triage readiness, support confidence, and response time across environments.
+
+* Overall, her achievements clearly contributed to better pipeline monitoring, faster failure response, improved support efficiency, and stronger operational stability for the project.
+
+## Ratings
+
+* Innovation / Ability to think out-of-the-box: **5 stars**
+* Commitment to client’s success: **5 stars**
+* Meeting deadlines for the tasks assigned: **5 stars**
+* Delivered quality in all aspects: **5 stars**
+* Teamwork and cooperation: **5 stars**
+* Commitment towards the tasks: **5 stars**
