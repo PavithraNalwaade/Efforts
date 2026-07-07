@@ -1,20 +1,12 @@
-### 1. Outline the contributions of the nominee for the last 6 months
+1. Outline the contributions of the nominee for the last 6 months
 
-Over the last 6 months, the nominee has shown strong ownership as a Module Lead in the FCC project. She contributed to key automation activities, Redshift table variance analysis, pipeline failure fixes, ServiceNow and Microsoft Teams alerting automation, and Alliance workflow delay mail automation.
+Over the last 6 months, the nominee has shown strong ownership as a Module Lead in the FCC project. She contributed to key automation activities, Redshift table variance analysis, pipeline failure fixes, ServiceNow and Microsoft Teams alerting automation, and Alliance workflow delay mail automation. She automated Incident creation, Teams failure alerts, Workflow delay alerts implementing through AWS Lambda, Event bridge, S3 and SNS [Included parent-child pipeline mapping,  auto-closure of incidents and genuine failure filtering from CloudWatch logs for AWS Glue and Step Function failures]. These improvements reduced manual tracking, helped the team identify failures faster, and made pipeline support more structured. Her Java development and migration support experience helped her understand real support challenges and deliver practical solutions that improved day-to-day operations.
 
-She automated incident creation, Teams failure alerts, parent-child pipeline mapping, duplicate suppression, retry success auto-closure, and failure visibility for AWS Glue and Step Function failures. These improvements reduced manual tracking, helped the team identify failures faster, and made pipeline support more structured.
 
-Her monitoring, Java, and migration support experience helped her understand real support challenges and deliver practical solutions that improved day-to-day operations.
+2. Describe the overall achievements of the nominee for the last 6 months
 
----
+The nominee helped move pipeline monitoring from a manual and reactive process to a more automated and reliable support model. Her work improved failure visibility, reduced alert noise, and made incident handling easier for the support team. As a Module Lead, she focused on solving actual operational issues across EDW/FSDW pipelines. Her contributions improved incident tracking, failure communication, triage readiness, and support confidence across environments. Overall, her work had a clear impact on support efficiency, faster failure response, and better pipeline monitoring.
 
-### 2. Describe the overall achievements of the nominee for the last 6 months
-
-The nominee helped move pipeline monitoring from a manual and reactive process to a more automated and reliable support model. Her work improved failure visibility, reduced alert noise, and made incident handling easier for the support team.
-
-As a Module Lead, she focused on solving actual operational issues across EDW/FSDW pipelines. Her contributions improved incident tracking, failure communication, triage readiness, and support confidence across environments.
-
-Overall, her work had a clear impact on support efficiency, faster failure response, and better pipeline monitoring.
 
 ---
 
