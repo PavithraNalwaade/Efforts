@@ -1,27 +1,19 @@
 
-### 1. How has the nominee been outrageously unreasonable for his achievements for the last 6 months?
+1. Outline the contributions of the nominee for the last 6 months
+Over the last 6 months, the nominee has demonstrated strong ownership as a Module Lead by driving the FCC Project on automation tasks, redshift tables variances, and fixing pipeline failure, Majorly ServiceNow and Microsoft Teams alerting automation for AWS data pipelines and Alliance workflow delay mail automation. Coming from a monitoring and Java background, and later leading migration support for migrated pipelines, she used her operational understanding to build practical automation that directly improved support efficiency. She automated incident creation, Teams failure alerts, parent-child pipeline mapping, auto-closure handling, and failure visibility for Glue and Step Function failures. Her work reduced manual tracking, improved response readiness, and brought better structure to pipeline support operations.
 
-Over the last 6 months, the nominee has demonstrated strong ownership as a Module Lead by driving ServiceNow and Microsoft Teams alerting automation for AWS data pipelines. Coming from a monitoring and Java background, and later leading migration support for migrated pipelines, he used his operational understanding to build practical automation that directly improved support efficiency. He helped automate incident creation, Teams failure alerts, duplicate suppression, parent-child pipeline mapping, auto-closure handling, and failure visibility for Glue and Step Function failures. His work reduced manual tracking, improved response readiness, and brought better structure to pipeline support operations.
 
----
+2. Describe the overall achievements of the nominee for the last 6 months
 
-### 2. Outline the contributions of the nominee for the last 6 months
+As a Module Lead, the nominee contributed by identifying gaps in pipeline monitoring and converting them into automation solutions. She worked on ServiceNow incident creation for AWS Glue and Step Function failures, Microsoft Teams alerting with meaningful failure details, OAuth token reuse for ServiceNow API calls, parent-child workflow mapping, duplicate incident suppression, retry success auto-closure, and midnight edge-case handling. She also supported restart payload generation and improved alert formats so teams can quickly understand the failed pipeline, failed job, environment, error reason, and action required. Her prior migration support and monitoring experience helped her design solutions from a real support perspective.
+The nominee successfully moved pipeline monitoring from a manual/reactive process toward a more automated and reliable support model. Her ServiceNow and Microsoft Teams automation improved visibility, reduced noise, and made failure handling easier for support teams. As a Module Lead, She not only implemented technical changes but also ensured the automation addressed real operational pain points seen in migrated pipeline support. Her work strengthened incident tracking, improved failure communication, supported faster triage, and increased confidence in EDW/FSDW pipeline monitoring across environments.
 
-As a Module Lead, the nominee contributed by identifying gaps in pipeline monitoring and converting them into automation solutions. He worked on ServiceNow incident creation for AWS Glue and Step Function failures, Microsoft Teams alerting with meaningful failure details, OAuth token reuse for ServiceNow API calls, parent-child workflow mapping, duplicate incident suppression, retry success auto-closure, and midnight edge-case handling. He also supported restart payload generation and improved alert formats so teams can quickly understand the failed pipeline, failed job, environment, error reason, and action required. His prior migration support and monitoring experience helped him design solutions from a real support perspective.
 
----
+Ratings
 
-### 3. Describe the overall achievements of the nominee for the last 6 months
-
-The nominee successfully moved pipeline monitoring from a manual/reactive process toward a more automated and reliable support model. His ServiceNow and Microsoft Teams automation improved visibility, reduced noise, and made failure handling easier for support teams. As a Module Lead, he not only implemented technical changes but also ensured the automation addressed real operational pain points seen in migrated pipeline support. His work strengthened incident tracking, improved failure communication, supported faster triage, and increased confidence in EDW/FSDW pipeline monitoring across environments.
-
----
-
-### Suggested ratings
-
-Innovation / Ability to think out-of-the-box: **5 stars**
-Commitment to client’s success: **5 stars**
-Meeting deadlines for the tasks assigned: **5 stars**
-Delivered quality in all aspects: **5 stars**
-Teamwork and cooperation: **5 stars**
-Commitment towards the tasks: **5 stars**
+Innovation / Ability to think out-of-the-box: 5 stars
+Commitment to client’s success: 5 stars
+Meeting deadlines for the tasks assigned: 5 stars
+Delivered quality in all aspects: 5 stars
+Teamwork and cooperation: 5 stars
+Commitment towards the tasks: 5 stars
