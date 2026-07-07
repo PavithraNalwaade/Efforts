@@ -1,19 +1,28 @@
+### 1. Outline the contributions of the nominee for the last 6 months
 
-1. Outline the contributions of the nominee for the last 6 months
-Over the last 6 months, the nominee has demonstrated strong ownership as a Module Lead by driving the FCC Project on automation tasks, redshift tables variances, and fixing pipeline failure, Majorly ServiceNow and Microsoft Teams alerting automation for AWS data pipelines and Alliance workflow delay mail automation. Coming from a monitoring and Java background, and later leading migration support for migrated pipelines, she used her operational understanding to build practical automation that directly improved support efficiency. She automated incident creation, Teams failure alerts, parent-child pipeline mapping, auto-closure handling, and failure visibility for Glue and Step Function failures. Her work reduced manual tracking, improved response readiness, and brought better structure to pipeline support operations.
+Over the last 6 months, the nominee has shown strong ownership as a Module Lead in the FCC project. She contributed to key automation activities, Redshift table variance analysis, pipeline failure fixes, ServiceNow and Microsoft Teams alerting automation, and Alliance workflow delay mail automation.
 
+She automated incident creation, Teams failure alerts, parent-child pipeline mapping, duplicate suppression, retry success auto-closure, and failure visibility for AWS Glue and Step Function failures. These improvements reduced manual tracking, helped the team identify failures faster, and made pipeline support more structured.
 
-2. Describe the overall achievements of the nominee for the last 6 months
+Her monitoring, Java, and migration support experience helped her understand real support challenges and deliver practical solutions that improved day-to-day operations.
 
-As a Module Lead, the nominee contributed by identifying gaps in pipeline monitoring and converting them into automation solutions. She worked on ServiceNow incident creation for AWS Glue and Step Function failures, Microsoft Teams alerting with meaningful failure details, OAuth token reuse for ServiceNow API calls, parent-child workflow mapping, duplicate incident suppression, retry success auto-closure, and midnight edge-case handling. She also supported restart payload generation and improved alert formats so teams can quickly understand the failed pipeline, failed job, environment, error reason, and action required. Her prior migration support and monitoring experience helped her design solutions from a real support perspective.
-The nominee successfully moved pipeline monitoring from a manual/reactive process toward a more automated and reliable support model. Her ServiceNow and Microsoft Teams automation improved visibility, reduced noise, and made failure handling easier for support teams. As a Module Lead, She not only implemented technical changes but also ensured the automation addressed real operational pain points seen in migrated pipeline support. Her work strengthened incident tracking, improved failure communication, supported faster triage, and increased confidence in EDW/FSDW pipeline monitoring across environments.
+---
 
+### 2. Describe the overall achievements of the nominee for the last 6 months
 
-Ratings
+The nominee helped move pipeline monitoring from a manual and reactive process to a more automated and reliable support model. Her work improved failure visibility, reduced alert noise, and made incident handling easier for the support team.
 
-Innovation / Ability to think out-of-the-box: 5 stars
-Commitment to client’s success: 5 stars
-Meeting deadlines for the tasks assigned: 5 stars
-Delivered quality in all aspects: 5 stars
-Teamwork and cooperation: 5 stars
-Commitment towards the tasks: 5 stars
+As a Module Lead, she focused on solving actual operational issues across EDW/FSDW pipelines. Her contributions improved incident tracking, failure communication, triage readiness, and support confidence across environments.
+
+Overall, her work had a clear impact on support efficiency, faster failure response, and better pipeline monitoring.
+
+---
+
+### Ratings
+
+Innovation / Ability to think out-of-the-box: **5 stars**
+Commitment to client’s success: **5 stars**
+Meeting deadlines for the tasks assigned: **5 stars**
+Delivered quality in all aspects: **5 stars**
+Teamwork and cooperation: **5 stars**
+Commitment towards the tasks: **5 stars**
