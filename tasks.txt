@@ -1,44 +1,61 @@
-## 1. Outline the contributions of the nominee for the last 6 months
+**1) How has the nominee been outrageously unreasonable for his achievements for the last 6 months?**
 
-* Over the last 6 months, the nominee has shown strong ownership and accountability as a Module Lead in the FCC project.
+The nominee has shown an ownership mindset and has consistently gone beyond his defined responsibilities to support Prism delivery. Over the last 6 months, he took complete ownership of DevOps activities across Prism 3.0 and 3.1, including pipeline migration, environment management, deployment automation, cloud onboarding, monitoring, security fixes, and team enablement.
 
-* She contributed to multiple key areas, including automation activities, Redshift table variance analysis, pipeline failure fixes, ServiceNow integration, Microsoft Teams alerting automation, and Alliance workflow delay mail automation.
+One of the major achievements was migrating the complete GitLab CI/CD setup to GitHub for Prism. This was a critical activity because the development teams were dependent on stable and automated pipelines to continue their feature delivery. The nominee owned this end-to-end and converted the existing GitLab pipelines into GitHub workflows, enabling automated CI/CD and helping the project meet delivery timelines.
 
-* She played an important role in automating incident creation and failure alerting for AWS Glue and Step Function failures using AWS Lambda, EventBridge, S3, SNS, ServiceNow, and Microsoft Teams.
+He also worked on complex cloud deployment requirements by deploying Prism on AWS EC2, EKS, and Azure environments. In addition, when the team was blocked on pushing and pulling images from on-prem machines to AWS ECR due to SCP restrictions, he studied the issue, identified a workable approach using token-based access, and enabled the team to move forward. This solution not only helped the Prism team but was also referred to by other teams.
 
-* Her automation included important support features such as parent-child pipeline mapping, incident auto-closure, genuine failure filtering from CloudWatch logs, and reduction of duplicate or unnecessary alerts.
+The nominee has been unreasonable in the best way by not limiting himself to only execution. He has actively solved blockers, created reusable automation, guided other teams, supported developers, improved deployment speed, reduced manual effort, and groomed teammates. His contribution has directly impacted Prism delivery, platform stability, team productivity, and client deployment readiness.
 
-* These improvements helped the team identify pipeline failures faster, reduced manual tracking effort, and made the support process more structured and reliable.
+**2) Outline the contributions of the nominee for the last 6 months**
 
-* She also supported workflow delay alerting automation, which helped the team proactively monitor delayed executions and take action before business impact.
+Over the last 6 months, the nominee has contributed significantly across multiple areas of Prism DevOps and cloud delivery.
 
-* Her experience in Java development, migration support, and production support helped her understand practical challenges faced by the team and deliver solutions that were useful in real day-to-day operations.
+He migrated the complete Prism CI/CD process from GitLab to GitHub and created automated GitHub workflows. This helped the development team continue their work smoothly and ensured timely delivery of features and changes.
 
-* Overall, her contributions improved monitoring, incident handling, failure communication, and operational efficiency across EDW/FSDW pipeline support.
+He deployed Prism across multiple platforms, including AWS EC2, AWS EKS, and Azure VMs. This supported the new cloud deployment model for Prism and helped expand the product’s deployment capability.
 
-## 2. Describe the overall achievements of the nominee for the last 6 months
+He enabled image movement from on-prem Harbor registry to AWS ECR despite SCP restrictions in AWS accounts. He analyzed the limitation, came up with a token-based solution, and enabled CI/CD pipelines for cloud and client deployments.
 
-* The nominee has made a strong impact by helping move pipeline monitoring from a manual and reactive process to a more automated, reliable, and proactive support model.
+He worked closely with backend, frontend, and other teams during Prism 3.0 and 3.1 delivery. He helped resolve deployment challenges, environment issues, and technical blockers that came up during product build and release.
 
-* Her work improved failure visibility across EDW/FSDW pipelines and helped the support team quickly understand where failures occurred and what action was required.
+He created Kubernetes dashboard and monitoring setup, which helped teams check deployment status, validate their changes, and review application logs without depending heavily on DevOps every time.
 
-* By implementing ServiceNow incident automation and Microsoft Teams alerting, she reduced manual effort and improved communication during pipeline failures.
+He created and configured GitHub runners using on-prem machines with GlobalProtect, enabling pipelines to run successfully in the required network setup.
 
-* Her contribution to genuine failure filtering helped reduce alert noise and allowed the team to focus on actual actionable failures instead of spending time on unnecessary or duplicate alerts.
+He created multiple CI/CD workflows for cronjobs, batch jobs, extensions, ETL jobs, services, AI agents, and other platform components across AWS, Azure, GCP, Databricks, and service-based deployments.
 
-* She improved incident handling by supporting parent-child pipeline mapping and auto-closure logic, which made tracking and resolution more accurate.
+He worked on Prism 3.0 release documentation and supported deployment documentation activities.
 
-* As a Module Lead, she focused on solving real operational issues and ensured that the automation was practical, support-friendly, and aligned with project needs.
+He created Prism 3.0 deployment automation scripts, reducing deployment time from a couple of hours to around 15 minutes.
 
-* Her work improved triage readiness, support confidence, and response time across environments.
+He created a Cronjob Sync automation script that reads schedule configuration from PostgreSQL and updates Kubernetes Cronjobs automatically. This saves around one hour of manual effort per environment, especially with 10–15 cronjobs being managed.
 
-* Overall, her achievements clearly contributed to better pipeline monitoring, faster failure response, improved support efficiency, and stronger operational stability for the project.
+He onboarded multiple AWS, Azure, and Databricks accounts for Prism 3.0 by handling prerequisites and environment setup across different environments.
 
-## Ratings
+He is currently working on the Foresters client deployment and has already helped resolve Databricks ETL and Azure Cost ETL issues with the development team, followed by successful deployment of the solution.
 
-* Innovation / Ability to think out-of-the-box: **5 stars**
-* Commitment to client’s success: **5 stars**
-* Meeting deadlines for the tasks assigned: **5 stars**
-* Delivered quality in all aspects: **5 stars**
-* Teamwork and cooperation: **5 stars**
-* Commitment towards the tasks: **5 stars**
+He also takes care of the AWS Sandstorm account and has resolved security vulnerabilities identified in that account.
+
+Apart from technical delivery, he has groomed and supported teammates including Shashank, Vaidyanath, Jayesh, Rahul, and Rishi Pandit. He has provided knowledge transfer, helped team members when they were blocked, and enabled them to work independently on Prism tasks.
+
+**3) Describe the overall achievements of the nominee for the last 6 months**
+
+The nominee’s overall achievements in the last 6 months have been highly impactful for Prism delivery, automation, cloud readiness, and team enablement.
+
+He played a key role in the successful delivery of Prism 3.0 and 3.1 by owning DevOps activities across environments and deployments. His work ensured that development teams were not blocked and could continue delivering features on time.
+
+The GitLab to GitHub pipeline migration was one of his major achievements. This helped modernize the CI/CD process and provided a stable automation foundation for the Prism team.
+
+He also contributed to making Prism deployable across cloud platforms such as AWS, Azure, EKS, and Databricks. His work on cloud onboarding, runner setup, ECR image push/pull approach, and multi-platform CI/CD workflows helped strengthen Prism’s cloud deployment capability.
+
+Another major achievement was deployment automation. By creating automation scripts, he reduced deployment time from a couple of hours to approximately 15 minutes. This created a clear improvement in release efficiency and reduced manual dependency.
+
+His Cronjob Sync automation further reduced operational effort by automatically updating Kubernetes Cronjob schedules from PostgreSQL configuration. This saved repeated manual effort across environments and improved operational accuracy.
+
+He improved platform visibility by setting up Kubernetes dashboard and monitoring, allowing teams to validate deployments and check logs easily.
+
+He also supported client delivery by working on the Foresters deployment and resolving Databricks ETL and Azure Cost ETL issues. Along with that, he handled security vulnerability remediation in the AWS Sandstorm account.
+
+Overall, the nominee has demonstrated strong ownership, technical problem-solving, automation mindset, cross-team collaboration, and leadership. His contributions have helped improve delivery speed, reduce manual work, unblock teams, strengthen cloud deployment capability, and support successful Prism 3.0 and 3.1 delivery.
